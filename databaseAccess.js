@@ -14,17 +14,9 @@ const mongoClient = new MongoClient(connectionString,  {
 mongoClient.connect(connectionString).then(
     (dbConnection) => {
         var database = dbConnection.db("employees");
-        var employeeTable = database.collection("details");
-        
-        employeeTable.insertOne({
-            name: "Varun", age: 10
-        }).then((response) => {
-            console.log("User Added Varun")
-        });
-        
+        var employeeTable = database.collection("employeeDetails");
         fs.readFile("./employees.json", function (err, data) {
             var empList = JSON.parse(data.toString());
-            
             empList.forEach(employee => {
                 employeeTable.insertOne({
                     name: employee.name, age: employee.age
